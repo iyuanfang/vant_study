@@ -2,7 +2,7 @@
 <div class="about">
     <van-nav-bar title="关于" right-text="点赞" class="navbar" />
     <van-row class="row">
-        <van-col span="8">
+        <van-col span="5">
             <van-image round width="80px" height="80px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </van-col>
         <van-col span="12" offset="2">
@@ -21,11 +21,11 @@
 
 <style>
 .about {
-    background-color: #f8f8f8;
+    background-color: #EEEEEE;
 }
 
 .navbar {
-    background-color: #f8f8f8;
+    background-color: #EEEEEE;
     color: black;
 }
 
