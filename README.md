@@ -1,5 +1,9 @@
 # vant_study
 
+详细代码详解请看我的语雀：
+
+https://www.yuque.com/docs/share/fd975f43-a977-4388-b261-e3e0cdefc944?# 《vant_study》
+
 ## Project setup
 ```
 yarn install
