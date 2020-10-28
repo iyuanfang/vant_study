@@ -6,7 +6,7 @@
             <van-image round width="80px" height="80px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </van-col>
         <van-col span="12" offset="2">
-            <font size="5">元芳</font><br><br>一起来学习vant布局
+            <font size="5">{{name}}</font><br><br>一起来学习vant布局
         </van-col>
     </van-row>
     <div class="info">
@@ -14,10 +14,36 @@
     </div>
     <van-cell-group>
         <van-cell title="设置" is-link />
-        <van-cell title="关于" is-link />
+        <van-cell title="关于作者" is-link @click="showAuthor" />
     </van-cell-group>
+    <van-popup v-model:show="show" position="bottom" :style="{ height: '30%' }">
+        <div style="padding:20px">元芳做的小页面，欢迎交流.<br>源代码：<a href="https://github.com/iyuanfang/vant_study">github</a></div>
+    </van-popup>
 </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            show: false,
+            name: ""
+        };
+    },
+
+    methods: {
+        showAuthor() {
+            this.show = true;
+        },
+    },
+    mounted() {
+        this.axios.get("http://192.168.0.102:3000/user/3").then((response) => {
+            this.name = response.data.name;
+        })
+
+    }
+};
+</script>
 
 <style>
 .about {
