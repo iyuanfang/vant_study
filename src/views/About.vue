@@ -3,10 +3,10 @@
     <van-nav-bar title="关于" right-text="点赞" class="navbar" />
     <van-row class="row">
         <van-col span="5">
-            <van-image round width="80px" height="80px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <van-image round width="80px" height="80px" :src="avatar" />
         </van-col>
-        <van-col span="12" offset="2">
-            <font size="5">{{name}}</font><br><br>一起来学习vant布局
+        <van-col span="17" offset="2">
+            <font size="5">{{user.name}}</font><br><br>{{user.brief}}
         </van-col>
     </van-row>
     <div class="info">
@@ -27,7 +27,8 @@ export default {
     data() {
         return {
             show: false,
-            name: ""
+            user: {},
+            avatar: ""
         };
     },
 
@@ -37,8 +38,9 @@ export default {
         },
     },
     mounted() {
-        this.axios.get("http://192.168.0.102:3000/user/3").then((response) => {
-            this.name = response.data.name;
+        this.axios.get(`${process.env.VUE_APP_BACKEND}/user/1`).then((response) => {
+            this.user = response.data;
+            this.avatar = `${process.env.VUE_APP_STATIC}/img/avatar-${this.user.id}.jpg`;
         })
 
     }
