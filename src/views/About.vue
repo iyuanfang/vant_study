@@ -7,7 +7,7 @@
                 <van-col span="8">
                     <van-image round width="60px" height="60px" :src="avatar" />
                 </van-col>
-                <van-col span="10" offset="6">
+                <van-col span="12" offset="4">
                     <font size="5">{{user.name}}</font><br>{{user.brief}}
                 </van-col>
             </van-row>
@@ -19,6 +19,7 @@
     <van-cell-group>
         <van-cell title="设置" is-link />
         <van-cell title="关于作者" is-link @click="showAuthor" />
+        <van-cell title="注销" is-link @click="logout" />
     </van-cell-group>
     <van-popup v-model:show="show" position="bottom" :style="{ height: '30%' }">
         <div style="padding:20px">元芳做的小页面，欢迎交流.<br>源代码：<a href="https://github.com/iyuanfang/vant_study">github</a></div>
@@ -40,6 +41,19 @@ export default {
         showAuthor() {
             this.show = true;
         },
+        logout() {
+            this.$dialog.confirm({
+                    title: '注销',
+                    message: '确定要注销吗？',
+                })
+                .then(() => {
+                    localStorage.removeItem("token");
+                    this.$router.push("/");
+                })
+                .catch(() => {
+                    // on cancel
+                });
+        }
     },
     mounted() {
         let user_id = localStorage.getItem("token");
@@ -57,12 +71,11 @@ export default {
     background-color: #EEEEEE;
 }
 
-.navbar {
-    background-color: #EEEEEE;
-    color: black;
+.row {
+    background-color: white;
 }
 
-.row {
+.navbar {
     background-color: white;
 }
 

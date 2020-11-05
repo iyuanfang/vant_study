@@ -30,6 +30,13 @@ const routes = [{
         meta: { navShow: false },
         component: () =>
             import ( /* webpackChunkName: "login" */ "../views/Login.vue"),
+    },
+    {
+        path: "/regist",
+        name: "Regist",
+        meta: { navShow: false },
+        component: () =>
+            import ( /* webpackChunkName: "regist" */ "../views/Regist.vue"),
     }
 ];
 

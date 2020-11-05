@@ -18,8 +18,5 @@ export default {
 </script>
 
 <style>
-.navbar {
-    background-color: #EEEEEE;
-    color: black;
-}
+
 </style>
