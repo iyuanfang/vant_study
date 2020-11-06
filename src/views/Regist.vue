@@ -4,6 +4,7 @@
     <van-field v-model="name" ref="name" name="用户名" label="用户名" placeholder="用户名" :rules="[{ required: true, message: '请填写用户名' }]" @blur="nameBlur" />
     <van-field v-model="pwd" type="password" name="密码" label="密码" placeholder="密码" :rules="[{ required: true, message: '请填写密码' }]" />
     <van-field v-model="pwd2" type="password" name="密码" label="确认密码" placeholder="确认密码" :rules="[{ required: true, message: '请再次输入密码' }]" />
+    <van-field v-model="brief" name="简介" label="简介" placeholder="介绍下自己" />
     <div style="margin: 16px;">
         <van-button round block type="primary" native-type="submit">
             注册
@@ -18,7 +19,8 @@ export default {
         return {
             name: '',
             pwd: '',
-            pwd2: ''
+            pwd2: '',
+            brief: ''
         };
     },
     methods: {
@@ -50,7 +52,8 @@ export default {
             }
             this.axios.post(`${process.env.VUE_APP_BACKEND}/user`, {
                 "name": this.name,
-                "pwd": this.pwd
+                "pwd": this.pwd,
+                "brief": this.brief
             }).then((response) => {
                 console.log(response.data);
                 const user_id = response.data._id;
