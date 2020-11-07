@@ -1,14 +1,15 @@
 <template>
 <div class="about">
     <van-nav-bar title="关于" right-text="点赞" class="navbar" />
-    <van-cell value="" center is-link to="/user_info">
-        <template #title>
+    <van-cell value="" center is-link to="/userinfo">
+        <template #default>
             <van-row class="row">
-                <van-col span="8">
-                    <van-image round width="60px" height="60px" :src="avatar" />
+                <van-col span="4">
+                    <van-image radius="10px" width="60px" height="60px" :src="avatar" />
                 </van-col>
-                <van-col span="12" offset="4">
-                    <font size="5">{{user.name}}</font><br>{{user.brief}}
+                <van-col span="18" offset="2">
+                    <font size="5">{{user.nickname}}</font>
+                    <div class="brief">{{user.brief}}</div>
                 </van-col>
             </van-row>
         </template>
@@ -73,10 +74,15 @@ export default {
 
 .row {
     background-color: white;
+    margin-left: 10px;
 }
 
 .navbar {
     background-color: white;
+}
+
+.brief {
+    margin-top: 10px;
 }
 
 .info {

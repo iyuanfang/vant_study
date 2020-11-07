@@ -15,28 +15,42 @@ const routes = [{
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ "../views/About.vue"),
+            import ( /* webpackChunkName: "about" */ "../views/user/About.vue"),
     },
     {
-        path: "/user_info",
+        path: "/userinfo",
         name: "UserInfo",
         meta: { navShow: false, auth: true },
         component: () =>
-            import ( /* webpackChunkName: "user_info" */ "../views/UserInfo.vue")
+            import ( /* webpackChunkName: "userinfo" */ "../views/user/UserInfo.vue")
     },
     {
         path: "/login",
         name: "Login",
         meta: { navShow: false },
         component: () =>
-            import ( /* webpackChunkName: "login" */ "../views/Login.vue"),
+            import ( /* webpackChunkName: "login" */ "../views/user/Login.vue"),
     },
     {
         path: "/regist",
         name: "Regist",
         meta: { navShow: false },
         component: () =>
-            import ( /* webpackChunkName: "regist" */ "../views/Regist.vue"),
+            import ( /* webpackChunkName: "regist" */ "../views/user/Regist.vue"),
+    },
+    {
+        path: "/nickname",
+        name: "nickname",
+        meta: { navShow: false },
+        component: () =>
+            import ( /* webpackChunkName: "regist" */ "../views/user/Nickname.vue"),
+    },
+    {
+        path: "/brief",
+        name: "brief",
+        meta: { navShow: false },
+        component: () =>
+            import ( /* webpackChunkName: "regist" */ "../views/user/Brief.vue"),
     }
 ];
 
