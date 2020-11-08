@@ -1,11 +1,12 @@
 <template>
 <van-nav-bar title="个人信息" left-arrow class="navbar" @click-left="onClickLeft" />
+
 <van-cell-group>
-    <van-cell title="头像" is-link>
-        <template #default>
+    <van-uploader :file-list="fileList" accept="image" :after-read="afterRead">
+        <van-cell title="头像" is-link>
             <van-image radius="10px" width="60px" height="60px" :src="avatar" />
-        </template>
-    </van-cell>
+        </van-cell>
+    </van-uploader>
     <van-cell title="昵称" :value="user.nickname" is-link to="/nickname" />
     <van-cell title="个性签名" :value="user.brief" is-link to="/brief" />
 </van-cell-group>
@@ -15,12 +16,21 @@
 export default {
     data() {
         return {
-            user: ''
+            user: '',
+            avatar: ''
         }
     },
     methods: {
         onClickLeft() {
             this.$router.push('/about')
+        },
+        afterRead(file) {
+            let params = new FormData();
+            params.append("avatar", file.file);
+            const user_id = localStorage.getItem("token");
+            this.axios.post(`${process.env.VUE_APP_BACKEND}/avatar/${user_id}`, params).then((response) => {
+                this.avatar = `${process.env.VUE_APP_STATIC}/img/${response.data}`;
+            });
         }
     },
     mounted() {
@@ -36,5 +46,11 @@ export default {
 </script>
 
 <style>
+.van-uploader {
+    width: 100%;
+}
 
+.van-uploader__input-wrapper {
+    width: 100%;
+}
 </style>
