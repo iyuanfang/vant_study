@@ -27,30 +27,37 @@ const routes = [{
     {
         path: "/login",
         name: "Login",
-        meta: { navShow: false },
+        meta: { navShow: false, auth: false },
         component: () =>
             import ( /* webpackChunkName: "login" */ "../views/user/Login.vue"),
     },
     {
         path: "/regist",
         name: "Regist",
-        meta: { navShow: false },
+        meta: { navShow: false, auth: false },
         component: () =>
             import ( /* webpackChunkName: "regist" */ "../views/user/Regist.vue"),
     },
     {
         path: "/nickname",
         name: "nickname",
-        meta: { navShow: false },
+        meta: { navShow: false, auth: true },
         component: () =>
-            import ( /* webpackChunkName: "regist" */ "../views/user/Nickname.vue"),
+            import ( /* webpackChunkName: "nickname" */ "../views/user/Nickname.vue"),
     },
     {
         path: "/brief",
         name: "brief",
-        meta: { navShow: false },
+        meta: { navShow: false, auth: true },
         component: () =>
-            import ( /* webpackChunkName: "regist" */ "../views/user/Brief.vue"),
+            import ( /* webpackChunkName: "brief" */ "../views/user/Brief.vue"),
+    },
+    {
+        path: "/addmemory",
+        name: "addMemory",
+        meta: { navShow: true, auth: true },
+        component: () =>
+            import ( /* webpackChunkName: "addNote" */ "../views/AddMemory.vue"),
     }
 ];
 
