@@ -60,7 +60,7 @@ export default {
         let user_id = localStorage.getItem("token");
         this.axios.get(`${process.env.VUE_APP_BACKEND}/user/${user_id}`).then((response) => {
             this.user = response.data;
-            this.avatar = `${process.env.VUE_APP_STATIC}/img/${this.user.avatar}`;
+            this.avatar = `${process.env.VUE_APP_STATIC}/avatar/${this.user.avatar}`;
         })
 
     }

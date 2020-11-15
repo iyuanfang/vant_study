@@ -5,7 +5,7 @@ const routes = [{
         path: "/",
         name: "Home",
         component: Home,
-        meta: { navShow: true, auth: false }
+        meta: { navShow: true, auth: true }
     },
     {
         path: "/about",
