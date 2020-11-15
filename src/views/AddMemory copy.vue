@@ -6,7 +6,7 @@
 </van-nav-bar>
 <van-field type="textarea" placeholder="这一刻的想法..." rows="2" autosize v-model="story" />
 <van-field label="城市" name="城市" v-model="city" />
-<van-uploader v-model="files" accept="image" max-count="1" :after-read="afterRead" @delete="deleteImg" />
+<van-uploader v-model="files" multiple accept="image" :after-read="afterRead" />
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             story: "",
-            city: "定位中",
+            city: "",
             disabled: true,
             type: "default",
             files: []
@@ -23,6 +23,7 @@ export default {
     methods: {
         save() {
             const user_id = localStorage.getItem("token");
+            
             this.axios.post(`${process.env.VUE_APP_BACKEND}/memory`, {
                 "story": this.story,
                 "city": this.city,
@@ -46,24 +47,7 @@ export default {
 
                 console.log("files222:", this.files);
             });
-        },
-        deleteImg() {
-            this.disabled = true;
-            this.type = "default";
-        },
-        showPosition(position) {
-            this.city = position.city;
-        },
-        showErr() {
-            this.city = "定位失败";
-        },
-        init() {
-            var geolocation = new window.qq.maps.Geolocation();
-            geolocation.getIpLocation(this.showPosition, this.showErr);
         }
-    },
-    mounted() {
-        this.init();
     }
 }
 </script>

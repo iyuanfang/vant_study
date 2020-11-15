@@ -10,23 +10,10 @@
                     </div>
                     <div class="content">
                         <div class="van-multi-ellipsis--l3">{{item.story}}</div>
-                        <div class="van-multi-ellipsis--l3">
+                        <div class="location">
                             <van-icon name="location-o" />{{item.city}}
                         </div>
-                        <van-row class="view">
-                            <van-col span="4">
-                                <van-icon name="star-o" size="15" />收藏
-                            </van-col>
-                            <van-col span="4" offset="1">
-                                <van-icon name="share-o" size="15" />转发
-                            </van-col>
-                            <van-col span="4" offset="6">
-                                <van-icon name="like-o" size="15" />1024
-                            </van-col>
-                            <van-col span="4" offset="1">
-                                <van-icon name="comment-o" size="15" />100
-                            </van-col>
-                        </van-row>
+                        <div class="date">{{this.showtime(item.date)}}</div>
                     </div>
                 </van-col>
             </van-row>
@@ -88,6 +75,9 @@ export default {
                 closeOnPopstate: true,
                 closeable: true,
             })
+        },
+        showtime(date) {
+            return new Date(date).toLocaleDateString();
         }
     }
 };
@@ -130,6 +120,14 @@ export default {
     height: 200px;
     background-color: #cd0000;
     object-fit: contain;
+}
 
+.location {
+    font-size: small;
+}
+
+.date {
+    font-size: small;
+    margin-top: 5px;
 }
 </style>
