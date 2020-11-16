@@ -87,6 +87,6 @@ export default {
     background-color: white;
     padding: 20px;
     text-align: left;
-    line-height: 160%;
+    line-height: 150%
 }
 </style>
