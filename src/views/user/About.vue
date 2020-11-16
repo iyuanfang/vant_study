@@ -3,7 +3,7 @@
     <van-nav-bar title="关于" right-text="点赞" class="navbar" />
     <van-cell value="" center is-link to="/userinfo">
         <template #default>
-            <van-row class="row">
+            <van-row>
                 <van-col span="4">
                     <van-image radius="10px" width="60px" height="60px" :src="avatar" />
                 </van-col>
@@ -68,11 +68,6 @@ export default {
 <style>
 .about {
     background-color: #EEEEEE;
-}
-
-.row {
-    background-color: white;
-    margin-left: 10px;
 }
 
 .navbar {
