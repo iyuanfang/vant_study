@@ -15,15 +15,13 @@
         </template>
     </van-cell>
     <div class="info">
-        Vant 是有赞前端团队开源的移动端组件库，于 2016 年开源，已持续维护 4 年时间。Vant 对内承载了有赞所有核心业务，对外服务十多万开发者，是业界主流的移动端组件库之一。
-    </div>
+        这是元芳一边学习Vue3.0一边开发的一个小程序（后面也会开发小程序版本）。<br>有一个明确的目标，碰到问题解决问题，却是最有效的学习代码的方法。<br>后端用Koa+mongodb，前端用vue3.0+vant。 源码：<a href="https://github.com/iyuanfang/vant_study">github</a></div>
     <van-cell-group>
-        <van-cell title="设置" is-link />
         <van-cell title="关于作者" is-link @click="showAuthor" />
         <van-cell title="注销" is-link @click="logout" />
     </van-cell-group>
     <van-popup v-model:show="show" position="bottom" :style="{ height: '30%' }">
-        <div style="padding:20px">元芳做的小页面，欢迎交流.<br>源代码：<a href="https://github.com/iyuanfang/vant_study">github</a></div>
+        <div class="info">元芳，算是互联网老人，原来一直做java后端，后来转业务和管理。<br>对前端的发展很感兴趣，所以躬身入局，自己边做边学。<br>微信:pesome</div>
     </van-popup>
 </div>
 </template>
@@ -86,9 +84,9 @@ export default {
 }
 
 .info {
-    margin: 10px 0;
     background-color: white;
     padding: 20px;
     text-align: left;
+    line-height: 160%;
 }
 </style>
