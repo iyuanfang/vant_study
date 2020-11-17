@@ -6,7 +6,7 @@
             <van-row v-for="item of list" :key="item._id" class="row">
                 <van-col span="24">
                     <div class="imgbox">
-                        <van-image :src="item.imgs[0].url" class="img" @click="preview(item)" />
+                        <van-image :src="item.imgs[0].url" class="img" @click="preview(item.imgs[0].url)" />
                     </div>
                     <div class="content">
                         <div class="van-multi-ellipsis--l3">{{item.story}}</div>
@@ -66,10 +66,9 @@ export default {
             this.loading = true;
             this.onLoad();
         },
-        preview(item) {
+        preview(url) {
             ImagePreview({
-                images: item.imgs[0].url, // 预览图片的那个数组
-                showIndex: true,
+                images: [url], // 预览图片的那个数组
                 loop: false,
                 startPosition: 0, // 指明预览第几张图
                 closeOnPopstate: true,
