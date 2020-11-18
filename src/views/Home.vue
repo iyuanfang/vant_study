@@ -1,132 +1,170 @@
 <template>
-<div class="home">
+  <div class="home">
     <van-nav-bar title="首页" right-text="下拉刷新" fixed class="navbar" />
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-        <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" class="list">
-            <van-row v-for="item of list" :key="item._id" class="row">
-                <van-col span="24">
-                    <div class="imgbox">
-                        <van-image :src="item.imgs[0].url" class="img" @click="preview(item.imgs[0].url)" />
-                    </div>
-                    <div class="content">
-                        <div class="van-multi-ellipsis--l3">{{item.story}}</div>
-                        <div class="location">
-                            <van-icon name="location-o" />{{item.city}}
-                        </div>
-                        <div class="date">{{this.showtime(item.date)}}</div>
-                    </div>
-                </van-col>
-            </van-row>
-        </van-list>
+      <van-list
+        v-model:loading="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        class="list"
+      >
+        <van-row v-for="item of list" :key="item._id" class="row">
+          <van-col span="24">
+            <div class="imgbox">
+              <van-image
+                :src="item.imgs[0].url"
+                class="img"
+                @click="preview(item.imgs[0].url)"
+              />
+            </div>
+            <div class="content">
+              <div class="van-multi-ellipsis--l3">{{ item.story }}</div>
+              <div class="location">
+                <van-icon name="location-o" />{{ item.city }}
+              </div>
+              <div class="date">
+                {{ this.showtime(item.date) }}
+                <div style="float: right">
+                  <van-icon
+                    name="ellipsis"
+                    size="20px"
+                    @click="showAction(item._id)"
+                  />
+                </div>
+              </div>
+            </div>
+          </van-col>
+        </van-row>
+      </van-list>
     </van-pull-refresh>
-</div>
+  </div>
 </template>
 
 <script>
-import {
-    ImagePreview
-} from 'vant';
+import { ImagePreview } from "vant";
 export default {
-    data() {
-        return {
-            list: [],
-            loading: false,
-            finished: false,
-            refreshing: false
-        };
+  data() {
+    return {
+      list: [],
+      loading: false,
+      finished: false,
+      refreshing: false,
+    };
+  },
+  methods: {
+    onLoad() {
+      if (this.refreshing) {
+        this.list = [];
+        this.refreshing = false;
+      }
+
+      const user_id = localStorage.getItem("token");
+      const pagesize = 3; //每页3条
+      this.axios
+        .get(
+          `${process.env.VUE_APP_BACKEND}/memory/user/${user_id}/${pagesize}/${this.list.length}`
+        )
+        .then((response) => {
+          const memories = response.data;
+          this.list = this.list.concat(memories);
+          console.log("list:", this.list);
+          //Array.prototype.push.apply(this.list, memories);
+          this.loading = false;
+          if (memories.length < pagesize) {
+            this.finished = true;
+          }
+        });
     },
-    methods: {
-        onLoad() {
-            if (this.refreshing) {
-                this.list = [];
-                this.refreshing = false;
-            }
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
 
-            const user_id = localStorage.getItem("token");
-            const pagesize = 3; //每页3条
-            this.axios
-                .get(`${process.env.VUE_APP_BACKEND}/memory/user/${user_id}/${pagesize}/${this.list.length}`)
-                .then((response) => {
-                    const memories = response.data;
-                    this.list = this.list.concat(memories);
-                    console.log("list:", this.list);
-                    //Array.prototype.push.apply(this.list, memories);
-                    this.loading = false;
-                    if (memories.length < pagesize) {
-                        this.finished = true;
-                    }
-                });
-        },
-        onRefresh() {
-            // 清空列表数据
-            this.finished = false;
-
-            // 重新加载数据
-            // 将 loading 设置为 true，表示处于加载状态
-            this.loading = true;
-            this.onLoad();
-        },
-        preview(url) {
-            ImagePreview({
-                images: [url], // 预览图片的那个数组
-                loop: false,
-                startPosition: 0, // 指明预览第几张图
-                closeOnPopstate: true,
-                closeable: true,
-            })
-        },
-        showtime(date) {
-            return new Date(date).toLocaleDateString();
-        }
-    }
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onLoad();
+    },
+    preview(url) {
+      ImagePreview({
+        images: [url], // 预览图片的那个数组
+        loop: false,
+        startPosition: 0, // 指明预览第几张图
+        closeOnPopstate: true,
+        closeable: true,
+      });
+    },
+    showtime(date) {
+      var str = new Date(date).toLocaleString("chinese", { hour12: false });
+      return str.substring(0, str.length - 3);
+    },
+    showAction(id) {
+      this.$dialog
+        .confirm({
+          title: "删除回忆",
+          message: "你确定要删除这个回忆吗？",
+        })
+        .then(() => {
+          this.axios
+            .delete(`${process.env.VUE_APP_BACKEND}/memory/${id}`)
+            .then(() => {
+              console.log("删除id:", id);
+              this.$router.go(0); //页面刷新
+            });
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+  },
 };
 </script>
 
 <style>
 .home {
-    background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .row {
-    margin-bottom: 10px;
-    background-color: white;
+  margin-bottom: 10px;
+  background-color: white;
 }
 
 .van-pull-refresh {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .van-multi-ellipsis--l3 {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .content {
-    padding: 0 10px 10px 10px;
+  padding: 0 10px 10px 10px;
 }
 
 .view {
-    font-size: medium;
+  font-size: medium;
 }
 
 .imgbox {
-    width: 100%;
-    height: 200px;
-    margin: 0 0;
+  width: 100%;
+  height: 200px;
+  margin: 0 0;
 }
 
 .img {
-    width: 100%;
-    height: 200px;
-    background-color: #cd0000;
-    object-fit: contain;
+  width: 100%;
+  height: 200px;
+  background-color: #cd0000;
+  object-fit: contain;
 }
 
 .location {
-    font-size: small;
+  font-size: small;
 }
 
 .date {
-    font-size: small;
-    margin-top: 5px;
+  font-size: small;
+  margin-top: 5px;
 }
 </style>
