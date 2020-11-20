@@ -15,7 +15,7 @@
               <van-image
                 :src="item.imgs[0].url"
                 class="img"
-                @click="preview(item.imgs[0].url)"
+                @click="viewMemory(item._id)"
               />
             </div>
             <div class="content">
@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import { ImagePreview } from "vant";
 export default {
   data() {
     return {
@@ -85,14 +84,8 @@ export default {
       this.loading = true;
       this.onLoad();
     },
-    preview(url) {
-      ImagePreview({
-        images: [url], // 预览图片的那个数组
-        loop: false,
-        startPosition: 0, // 指明预览第几张图
-        closeOnPopstate: true,
-        closeable: true,
-      });
+    viewMemory(id) {
+      this.$router.push('/memory/'+id);
     },
     showtime(date) {
       var str = new Date(date).toLocaleString("chinese", { hour12: false });

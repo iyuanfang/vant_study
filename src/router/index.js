@@ -57,7 +57,14 @@ const routes = [{
         name: "addMemory",
         meta: { navShow: true, auth: true },
         component: () =>
-            import ( /* webpackChunkName: "addNote" */ "../views/AddMemory.vue"),
+            import ( /* webpackChunkName: "addMemory" */ "../views/memory/AddMemory.vue"),
+    },
+    {
+        path: "/memory/:id",
+        name: "memory",
+        meta: { navShow: false, auth: true },
+        component: () =>
+            import ( /* webpackChunkName: "memory" */ "../views/memory/Memory.vue"),
     }
 ];
 
