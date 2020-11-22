@@ -27,10 +27,9 @@
     /></van-col>
   </van-row>
   </div>
-  <div v-if="memory.imgs" class="imgbox">
+  <div v-if="memory.imgs">
     <van-image
       :src="memory.imgs[0].url"
-      class="img"
       @click="preview(memory.imgs[0].url)"
     />
   </div>

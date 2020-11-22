@@ -119,7 +119,7 @@ export default {
 }
 
 .row {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   background-color: white;
 }
 
@@ -139,17 +139,10 @@ export default {
   font-size: medium;
 }
 
-.imgbox {
+.img{
   width: 100%;
-  height: 200px;
+  height: 240px;
   margin: 0 0;
-}
-
-.img {
-  width: 100%;
-  height: 200px;
-  background-color: #cd0000;
-  object-fit: contain;
 }
 
 .location {
