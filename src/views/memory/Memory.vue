@@ -6,6 +6,27 @@
     @click-left="onClickLeft"
   >
   </van-nav-bar>
+  <div class="author">
+  <van-row>
+    <van-col span="3">
+    <van-image
+      round
+      width="40px"
+      height="40px"
+      :src="avatar"
+    />
+    </van-col>
+    <van-col span="12" >
+    <font size="4" class="nickname">{{ author.nickname }}</font></van-col>
+  <van-col span="1" offset="8">
+    <van-icon
+      align="right"
+      name="ellipsis"
+      size="20px"
+      @click="share(memory._id)"
+    /></van-col>
+  </van-row>
+  </div>
   <div v-if="memory.imgs" class="imgbox">
     <van-image
       :src="memory.imgs[0].url"
@@ -18,7 +39,7 @@
     <div class="location"><van-icon name="location-o" />{{ memory.city }}</div>
     <div class="date">
       {{ this.showtime(memory.date) }}
-      <div style="float: right">
+      <div v-if="user_id" style="float: right">
         <van-icon name="ellipsis" size="20px" @click="showAction(memory._id)" />
       </div>
     </div>
@@ -31,6 +52,9 @@ export default {
   data() {
     return {
       memory: {},
+      user_id: null,
+      author: {},
+      avatar: "",
     };
   },
   methods: {
@@ -70,11 +94,20 @@ export default {
     },
   },
   mounted() {
+    this.user_id = localStorage.getItem("token");
     this.axios
       .get(`${process.env.VUE_APP_BACKEND}/memory/${this.$route.params.id}`)
       .then((response) => {
         this.memory = response.data;
         console.log(this.memory);
+
+        const author_id = this.memory.user_id;
+        this.axios
+          .get(`${process.env.VUE_APP_BACKEND}/user/${author_id}`)
+          .then((response) => {
+            this.author = response.data;
+            this.avatar = `${process.env.VUE_APP_STATIC}/avatar/${this.author.avatar}`;
+          });
       });
   },
 };
@@ -83,5 +116,13 @@ export default {
 <style scoped>
 .content {
   padding: 10px;
+}
+
+.author {
+  padding: 10px;
+}
+
+.nickname {
+    line-height: 40px;
 }
 </style>

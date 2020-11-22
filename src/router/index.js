@@ -62,7 +62,7 @@ const routes = [{
     {
         path: "/memory/:id",
         name: "memory",
-        meta: { navShow: false, auth: true },
+        meta: { navShow: false, auth: false },
         component: () =>
             import ( /* webpackChunkName: "memory" */ "../views/memory/Memory.vue"),
     }
