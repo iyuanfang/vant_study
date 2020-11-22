@@ -141,7 +141,7 @@ export default {
 
 .img{
   width: 100%;
-  height: 240px;
+  height: 300px;
   margin: 0 0;
 }
 
