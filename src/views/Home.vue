@@ -13,7 +13,7 @@
           <van-col span="24">
             <div class="imgbox">
               <van-image
-                :src="item.imgs[0].url"
+                :src="getCompressImg(item.imgs[0].url)"
                 class="img"
                 @click="viewMemory(item._id)"
               />
@@ -109,6 +109,9 @@ export default {
           // on cancel
         });
     },
+    getCompressImg(src){
+        return src+".jpg";
+    }
   },
 };
 </script>
@@ -141,7 +144,6 @@ export default {
 
 .img{
   width: 100%;
-  height: 250px;
   margin: 0 0;
 }
 
