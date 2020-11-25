@@ -127,7 +127,7 @@ export default {
 }
 
 .van-multi-ellipsis--l3 {
-  margin: 10px 0;
+  margin: 0;
 }
 
 .content {
@@ -145,6 +145,7 @@ export default {
 
 .location {
   font-size: small;
+  margin-top: 5px;
 }
 
 .date {
