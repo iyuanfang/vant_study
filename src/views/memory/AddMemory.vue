@@ -65,8 +65,10 @@ export default {
       this.type = "success";
     },
     deleteImg() {
-      this.disabled = true;
-      this.type = "default";
+      if (this.files.length == 0) {
+        this.disabled = true;
+        this.type = "default";
+      }
     },
     showPosition(position) {
       this.city = position.city;

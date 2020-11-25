@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <van-nav-bar title="首页" right-text="下拉刷新" fixed class="navbar" />
+    <van-nav-bar title="首页" fixed class="navbar" />
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
       <van-list
         v-model:loading="loading"
@@ -15,6 +15,7 @@
               <van-image
                 :src="getCompressImg(item.imgs[0])"
                 class="img"
+                radius="10"
                 @click="viewMemory(item._id)"
               />
             </div>
@@ -117,13 +118,8 @@ export default {
 </script>
 
 <style>
-.home {
-  background-color: #eeeeee;
-}
-
 .row {
-  margin-bottom: 20px;
-  background-color: white;
+  margin: 20px;
 }
 
 .van-pull-refresh {

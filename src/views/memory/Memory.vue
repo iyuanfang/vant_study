@@ -27,7 +27,7 @@
     /></van-col>
   </van-row>
   </div>
-  <div v-for="(img, index) in memory.imgs" :key="index">
+  <div v-for="(img, index) in memory.imgs" :key="index" class="imgs">
     <van-image
       :src="getCompressImg(img)"
       @click="preview(index)"
@@ -64,7 +64,7 @@ export default {
     preview(index) {
       ImagePreview({
         images: this.imgUrls, // 预览图片的那个数组
-        loop: false,
+        loop: true,
         startPosition: index, // 指明预览第几张图
         closeOnPopstate: true,
         closeable: true,
@@ -122,7 +122,11 @@ export default {
 
 <style scoped>
 .content {
-  padding: 10px;
+  padding: 10px 20px;
+}
+
+.imgs{
+    padding: 0 20px;
 }
 
 .van-image{
@@ -130,7 +134,7 @@ export default {
 }
 
 .author {
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .nickname {
