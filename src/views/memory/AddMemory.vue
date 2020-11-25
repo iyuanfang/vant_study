@@ -17,35 +17,31 @@ export default {
             city: "定位中",
             disabled: true,
             type: "default",
-            files: []
+            files:[]
         }
     },
     methods: {
         save() {
-            const user_id = localStorage.getItem("token");
-            this.axios.post(`${process.env.VUE_APP_BACKEND}/memory`, {
+            let params = new FormData();
+            console.log(this.files);
+            params.append("memory", this.files[0].file);
+            this.axios.post(`${process.env.VUE_APP_BACKEND}/memory/upload`, params).then((response) => {
+                var imgs=[{"url":`${process.env.VUE_APP_STATIC}/img/${response.data}`}];
+                const user_id = localStorage.getItem("token");
+                this.axios.post(`${process.env.VUE_APP_BACKEND}/memory`, {
                 "story": this.story,
                 "city": this.city,
                 "user_id": user_id,
-                "imgs": this.files
-            }).then((response) => {
+                "imgs": imgs
+                }).then((response) => {
                 console.log(response.data);
                 this.$router.push("/");
-            });
+                });
+            });            
         },
-        afterRead(file) {
+        afterRead() {
             this.disabled = false;
             this.type = "success";
-            let params = new FormData();
-            params.append("memory", file.file);
-            this.axios.post(`${process.env.VUE_APP_BACKEND}/memory/upload`, params).then((response) => {
-                this.files = [{
-                    url: `${process.env.VUE_APP_STATIC}/img/${response.data}`
-                }];
-                console.log("files name:", response.data);
-
-                console.log("files222:", this.files);
-            });
         },
         deleteImg() {
             this.disabled = true;
