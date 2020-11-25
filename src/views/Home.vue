@@ -13,7 +13,7 @@
           <van-col span="24">
             <div class="imgbox">
               <van-image
-                :src="getCompressImg(item.imgs[0].url)"
+                :src="getCompressImg(item.imgs[0])"
                 class="img"
                 @click="viewMemory(item._id)"
               />
@@ -110,7 +110,7 @@ export default {
         });
     },
     getCompressImg(src){
-        return src+".jpg";
+        return `${process.env.VUE_APP_STATIC}/img/${src}.jpg`;
     }
   },
 };

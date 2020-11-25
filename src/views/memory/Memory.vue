@@ -27,10 +27,10 @@
     /></van-col>
   </van-row>
   </div>
-  <div v-if="memory.imgs">
+  <div v-for="(img, index) in memory.imgs" :key="index">
     <van-image
-      :src="memory.imgs[0].url"
-      @click="preview(memory.imgs[0].url)"
+      :src="getCompressImg(img)"
+      @click="preview(index)"
     />
   </div>
   <div class="content">
@@ -54,17 +54,18 @@ export default {
       user_id: null,
       author: {},
       avatar: "",
+      imgUrls:[]
     };
   },
   methods: {
     onClickLeft() {
       this.$router.go(-1);
     },
-    preview(url) {
+    preview(index) {
       ImagePreview({
-        images: [url], // 预览图片的那个数组
+        images: this.imgUrls, // 预览图片的那个数组
         loop: false,
-        startPosition: 0, // 指明预览第几张图
+        startPosition: index, // 指明预览第几张图
         closeOnPopstate: true,
         closeable: true,
       });
@@ -91,6 +92,9 @@ export default {
           // on cancel
         });
     },
+    getCompressImg(src){
+        return `${process.env.VUE_APP_STATIC}/img/${src}.jpg`;
+    }
   },
   mounted() {
     this.user_id = localStorage.getItem("token");
@@ -99,6 +103,10 @@ export default {
       .then((response) => {
         this.memory = response.data;
         console.log(this.memory);
+
+        for(let img of this.memory.imgs){
+            this.imgUrls.push(`${process.env.VUE_APP_STATIC}/img/${img}`);
+        }
 
         const author_id = this.memory.user_id;
         this.axios
@@ -115,6 +123,10 @@ export default {
 <style scoped>
 .content {
   padding: 10px;
+}
+
+.van-image{
+    width: 100%;
 }
 
 .author {
