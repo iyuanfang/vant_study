@@ -86,7 +86,7 @@ export default {
       this.onLoad();
     },
     viewMemory(id) {
-      this.$router.push('/memory/'+id);
+      this.$router.push("/memory/" + id);
     },
     showtime(date) {
       var str = new Date(date).toLocaleString("chinese", { hour12: false });
@@ -110,9 +110,9 @@ export default {
           // on cancel
         });
     },
-    getCompressImg(src){
-        return `${process.env.VUE_APP_STATIC}/img/${src}.jpg`;
-    }
+    getCompressImg(src) {
+      return `${process.env.VUE_APP_STATIC}/img/${src}.jpg`;
+    },
   },
 };
 </script>
@@ -138,7 +138,7 @@ export default {
   font-size: medium;
 }
 
-.img{
+.img {
   width: 100%;
   margin: 0 0;
 }

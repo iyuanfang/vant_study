@@ -85,7 +85,7 @@ export default {
             .delete(`${process.env.VUE_APP_BACKEND}/memory/${id}`)
             .then(() => {
               console.log("删除id:", id);
-              this.$router.go(0); //页面刷新
+              this.$router.push('/');
             });
         })
         .catch(() => {
