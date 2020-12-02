@@ -37,27 +37,21 @@ export default {
   },
   methods: {
     save() {
+      this.disabled = true; //防止点两次
       let params = new FormData();
       console.log(this.files);
       for (var file of this.files) {
         params.append("memory", file.file);
       }
+      const user_id = localStorage.getItem("token");
+      params.append("story", this.story);
+      params.append("user_id", user_id);
+      params.append("city", this.city);
       this.axios
         .post(`${process.env.VUE_APP_BACKEND}/memory/upload`, params)
         .then((response) => {
-          var imgs = response.data;
-          const user_id = localStorage.getItem("token");
-          this.axios
-            .post(`${process.env.VUE_APP_BACKEND}/memory`, {
-              story: this.story,
-              city: this.city,
-              user_id: user_id,
-              imgs: imgs,
-            })
-            .then((response) => {
-              console.log(response.data);
-              this.$router.push("/");
-            });
+          console.log(response.data);
+          this.$router.push("/");
         });
     },
     afterRead() {
